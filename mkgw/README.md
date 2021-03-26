@@ -24,8 +24,8 @@
 
 ## 雜訊
 
-透過pycbc套件，根據不同的Power Spectral Density（PSD）[1]產生雜訊
+透過pycbc套件，根據不同的Power Spectral Density（PSD）產生雜訊[1]
 
 
 
-[1](https://dcc.ligo.org/public/0002/T0900288/002/AdvLIGO%20noise%20curves.pdf)
+[1 "LIGO-PSD"](https://dcc.ligo.org/public/0002/T0900288/002/AdvLIGO%20noise%20curves.pdf)
