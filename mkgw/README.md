@@ -21,3 +21,11 @@
 <img src="https://github.com/chung-chin/gw/blob/master/mkgw/plots/mass_150.png" alt="FIG 3" title="FIG 3" width="600"></p>
 
 ##### FIG. 3:質量mA, mB
+
+## 雜訊
+
+透過pycbc套件，根據不同的Power Spectral Density（PSD）[1]產生雜訊
+
+
+
+[1](https://dcc.ligo.org/public/0002/T0900288/002/AdvLIGO%20noise%20curves.pdf)
