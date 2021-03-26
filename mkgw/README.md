@@ -12,6 +12,6 @@
 
 <img src="https://github.com/chung-chin/gw/blob/master/mkgw/plots/mass_function.png" alt="FIG 1" title="FIG. 1:雙曲函數。a=3, b-1.7, min_m=5" width="800"></p>
 
-<img src="https://github.com/chung-chin/gw/blob/master/mkgw/plots/mass_150_curve.pdf" alt="FIG 2" title=""></p>
+<img src="https://github.com/chung-chin/gw/blob/master/mkgw/plots/mass_150_curve.png" alt="FIG 2" title=""></p>
 
-<img src="https://github.com/chung-chin/gw/blob/master/mkgw/plots/mass_150.pdf" alt="FIG 3" title=""></p>
+<img src="https://github.com/chung-chin/gw/blob/master/mkgw/plots/mass_150.png" alt="FIG 3" title=""></p>
