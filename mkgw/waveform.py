@@ -75,7 +75,7 @@ print('mass list: ', m)
 
 
 #----
-#
+# getting low frequency
 #--
 GM0 = 6.674e-11 * 1.9891e30    #- mass of sun
 c   = 299792458.    #- speed of light
@@ -154,7 +154,7 @@ mass_ = []
 mass_.append(mA_)
 mass_.append(mB_)
 mass_.append(m)
-np.save('./mass_%s.npy' %m_rate, mass_)
+np.save('./mass_%s_%sb.npy' %(m_rate, int(b*10)), mass_)
 
 print('Finished !!')
 
