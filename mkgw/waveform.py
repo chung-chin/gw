@@ -20,9 +20,22 @@ m_rate = 150   #- sampling rate of mass
 #---
 # constants of mass function
 #---
-a = 3
-b = 1.7    #- slop
+a = 2.
+b = 1.7
 
+
+pa = './mass_%s_a%s' %(m_rate, int(a*10))    #- output path
+
+#----
+# Check path
+#--
+def mkdir_checkdir(pa):
+
+    if os.path.exists(pa):
+        print(pa + 'have existed!')
+    if not os.path.exists(pa):
+        os.mkdir(pa)
+        print('MKDIR: ' + pa + ' successful!')
 
 #----
 # Build a mass list via hyperbolic tangent
@@ -61,7 +74,7 @@ def get_mass(max_m, min_m, m_rate, a, b):
         if cnt > 100:
             sys.exit('Can not fit with small m_rate.')
             
-        if max_m-4 < y < max_m-1:
+        if max_m-3 < y < max_m-1:
             break
         
     m_.append(max_m)
@@ -94,7 +107,9 @@ def time2lowfreq(m1,m2,t):
 mA = []    #- mass A
 mB = []    #- mass B
 
-H5_FILE = 'bbh_%d_n%1d.h5' %(RATE, n)
+mkdir_checkdir(pa)
+
+H5_FILE = '%s/bbh_%d_n%1d.h5' %(pa, RATE, m_rate)
 f = h5py.File(H5_FILE, 'w', libver='latest')
 
 main_grep = f.create_group('/waveform')
@@ -104,8 +119,8 @@ main_grep.attrs['desc'] = 'Spinless BBH waveform model'
     
 step = 0
 
-for i in range(0, n):
-    for j in range(i, n):
+for i in range(0, m_rate):
+    for j in range(i, m_rate):
         ma = m[i]
         mb = m[j]
         
@@ -154,7 +169,65 @@ mass_ = []
 mass_.append(mA_)
 mass_.append(mB_)
 mass_.append(m)
-np.save('./mass_%s_%sb.npy' %(m_rate, int(b*10)), mass_)
+np.save('%s/mass.npy' %pa, mass_)
+
+plot = True
+if plot:
+
+    ca=0    #- counter
+    cb=0
+    cd=0
+    ct=0
+
+    l = len(mA_)
+
+    for i in range(l):
+        ct += 1
+
+        if mA_[i]+mB_[i] <= 80:
+            ca += 1
+        if mA_[i]+mB_[i] <= 40:
+            cb += 1
+        if mA_[i]+mB_[i] <= 20:
+            cd += 1
+
+    print('total number: ', ct)
+    print('total mass under 80: ', ca)
+    print('total mass under 40: ', cb)
+    print('total mass under 20: ', cd)
+
+    ### mass ###
+    plt.figure(figsize=(8,8))
+    plt.plot(mB_, mA_, 'r.', markersize=2)
+
+    plt.text(5, 70, 'total number: %s' %ct, fontsize=16)
+    plt.text(5, 65, 'total mass less than 80: %s' %ca, fontsize=16)
+    plt.text(5, 60, 'total mass less than 40: %s' %cb, fontsize=16)
+    plt.text(5, 55, 'total mass less than 20: %s' %cd, fontsize=16)
+
+    plt.xlabel('mB')
+    plt.ylabel('mA')
+    plt.xticks(np.arange(0,80,5))
+    plt.yticks(np.arange(0,80,5))
+    plt.title('mass')
+
+    plt.savefig('%s/mass_plot.pdf' %pa)
+    plt.savefig('%s/mass_plot.eps' %pa, format='eps', dpi=1000)
+    plt.show()
+
+    ### curve ###
+    plt.figure()
+    plt.plot(m, 'r.', markersize=2)
+
+    plt.yticks(np.arange(0,80,5))
+    plt.grid()
+
+    plt.xlabel('number')
+    plt.ylabel('mass')
+    plt.title('curve of mass sample')
+
+    plt.savefig('%s/mass_curve.pdf' %pa)
+    plt.savefig('%s/mass_curve.eps' %pa, format='eps', dpi=1000)
 
 print('Finished !!')
 
